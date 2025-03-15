@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class Logger {
   /// Log a debug message
-  static void debug(String message) {
+  static void debugPrint(String message) {
     if (kDebugMode) {
       print("DEBUG: $message");
     }

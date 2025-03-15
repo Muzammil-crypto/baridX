@@ -1,4 +1,11 @@
 class AppStrings {
+  // Input Fields
+  static const String firstName = "First Name";
+  static const String secondName = "Second Name";
+  static const String address = "Address";
+  static const String phone = "Phone Number";
+
+
   // General
   static const String appName = "BaridX OrderFlow";
   static const String welcomeMessage = "Welcome to BaridX OrderFlow!";

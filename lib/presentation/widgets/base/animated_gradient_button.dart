@@ -23,6 +23,15 @@ class _AnimatedGradientButtonState extends State<AnimatedGradientButton> with Si
     )..repeat(reverse: true);
   }
 
+  //disposing the controller
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
+    super.dispose();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,7 +39,7 @@ class _AnimatedGradientButtonState extends State<AnimatedGradientButton> with Si
       child: Container(
         height: 50,
         decoration: BoxDecoration(
-          gradient:  LinearGradient(
+          gradient:  const LinearGradient(
             colors: [AppColors.primary, AppColors.secondary],
           ),
           borderRadius: BorderRadius.circular(12),

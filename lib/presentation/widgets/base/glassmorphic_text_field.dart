@@ -12,7 +12,7 @@ class GlassmorphicTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
 
-  GlassmorphicTextField({
+  const GlassmorphicTextField({
     Key? key,
     required this.label,
     required this.hintText,
@@ -25,57 +25,59 @@ class GlassmorphicTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-
-      padding:  EdgeInsets.symmetric(vertical: .5.h),
+      padding: EdgeInsets.symmetric(vertical: 0.5.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding:  EdgeInsets.symmetric(vertical: .5.h),
-            child: Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.01),
-              borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
-              border: Border.all(
-                color: AppColors.primary.withOpacity(0.3),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withOpacity(0.1),
-                  blurRadius: 10,
-                  spreadRadius: 1,
+          Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+          SizedBox(height: 0.5.h),
+          TextFormField(
+            controller: controller,
+            keyboardType: keyboardType,
+            obscureText: obscureText,
+            style: AppStyles.inputTextStyle,
+            decoration: InputDecoration(
+              hintText: hintText,
+              hintStyle: AppStyles.inputHintStyle,
+              filled: true,
+              fillColor: AppColors.primary.withOpacity(0.05), // Transparent Glass Look
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                borderSide: BorderSide(
+                  color: AppColors.primary.withOpacity(0.3),
                 ),
-              ],
-            ),
-            child: TextFormField(
-              cursorColor: AppColors.primary,
-              controller: controller,
-              keyboardType: keyboardType,
-              obscureText: obscureText,
-              style: AppStyles.inputTextStyle,
-              decoration: InputDecoration(
-                hintText: hintText,
-                hintStyle: AppStyles.inputHintStyle,
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.all(3.w),
               ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                borderSide: BorderSide(
+                  color: AppColors.primary.withOpacity(0.3),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                borderSide: const BorderSide(
+                  color: AppColors.primary,
+                  width: 1,
+                ),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 1,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                borderSide: const BorderSide(
+                  color: Colors.red,
+                  width: 1,
+                ),
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
             ),
+            validator: validator, // ✅ Validation applied directly
           ),
-          validator != null
-              ? Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: .3.h,),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      textAlign: TextAlign.left,
-                      validator!(controller.text) ?? '',
-                      style: AppStyles.errorTextStyle,
-                    ),
-                  ),
-                )
-              : SizedBox(),
         ],
       ),
     );

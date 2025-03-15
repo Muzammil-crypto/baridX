@@ -1,177 +1,126 @@
-import 'dart:ui';
-import 'package:baridx_orderflow/core/constants/app_asssets.dart';
+import 'package:baridx_orderflow/core/constants/app_strings.dart';
+import 'package:baridx_orderflow/core/constants/app_styles.dart';
+import 'package:baridx_orderflow/presentation/layouts/app_layout.dart';
+import 'package:baridx_orderflow/presentation/widgets/general/splash/dot_indicators.dart';
+import 'package:baridx_orderflow/presentation/widgets/general/splash/splash_slide.dart';
+import 'package:baridx_orderflow/routes/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sizer/sizer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_styles.dart';
-import '../../core/constants/app_strings.dart';
+import '../../logic/cubits/splash_cubit.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
 
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late SplashCubit splashCubit;
   void _onPressed(BuildContext context) {
-    GoRouter.of(context).push('/customer-info');
+    AppRouter.goCustomerInfo();
   }
+
+  @override
+  void initState() {
+    super.initState();
+    splashCubit = SplashCubit(vsync: this); // Pass TickerProvider to Cubit
+  }
+
+  @override
+  void dispose() {
+    splashCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
-      body: Stack(
-        children: [
-          // Background Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  AppColors.gradientStart,
-                  AppColors.gradientMid,
-                  AppColors.gradientEnd,
-                ],
-              ),
-            ),
-          ),
-
-          Positioned(
-            top: 40.h,
-            left: 35.w,
-            child: BlurredCircle(color: AppColors.blurSoftPurple, size: 25.w),
-          ),
-          Positioned(
-            bottom: -2.h,
-            left: -5.w,
-            child: BlurredCircle(color: AppColors.blurSoftPurple, size: 30.w),
-          ),
-
-          Positioned(
-            top: 6.h, // Responsive positioning
-            right: 5.w,
-            child: TextButton(
-              onPressed: () => _onPressed(context),
-              child: Text(
-                AppStrings.skip,
-                style: AppStyles.buttonTextStyle
-                    .copyWith(color: AppColors.textPrimary),
-              ),
-            ),
-          ),
-
-          // Main Content
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Spacer(),
-
-              // Headphone Image (Responsive)
-              Center(
-                child: Image.asset(
-                  AppAssets.headphones,
-                  width: 40.w, // Responsive width
+    return BlocProvider.value(
+      value: splashCubit,
+      child: Scaffold(
+        backgroundColor: AppColors.backgroundLight,
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return Stack(
+              children: [
+                // Background Gradient
+                Container(
+                  decoration: const BoxDecoration(
+                    gradient: AppColors.appGradient,
+                  ),
                 ),
-              ),
 
-              const Spacer(),
+                // Blurred Circles
+                Positioned(
+                  top: constraints.maxHeight * 0.25,
+                  left: constraints.maxWidth * 0.25,
+                  child: BlurredCircle(
+                      color: AppColors.blurSoftPurple,
+                      size: constraints.maxWidth * 0.6),
+                ),
+                Positioned(
+                  bottom: -constraints.maxHeight * 0.02,
+                  left: -constraints.maxWidth * 0.05,
+                  child: BlurredCircle(
+                      color: AppColors.blurSoftPurple,
+                      size: constraints.maxWidth * 0.4),
+                ),
 
-              // Title with Branding
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 6.w),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: RichText(
-                    text: TextSpan(
-                      style: AppStyles.titleStyle,
-                      children: [
-                        TextSpan(text: AppStrings.appName),
-                        TextSpan(
-                          text: ".", // Dot in primary color
-                          style: AppStyles.titleStyle
-                              .copyWith(color: AppColors.primary),
-                        ),
-                      ],
+                // PageView with Animated Dots
+                Column(
+                  children: [
+                    Expanded(
+                      flex: 8,
+                      child: BlocBuilder<SplashCubit, int>(
+                        builder: (context, pageIndex) {
+                          return PageView.builder(
+                            onPageChanged: (index) {
+                              splashCubit.updatePage(index);
+                            },
+                            itemCount: 3,
+                            itemBuilder: (context, index) {
+                              return SplashSlide(index: index);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+
+                    // Dots Indicator
+                    BlocBuilder<SplashCubit, int>(
+                      builder: (context, pageIndex) {
+                        return Align(
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: List.generate(
+                              3,
+                              (index) =>
+                                  AnimatedDot(isActive: index == pageIndex),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+                // Skip Button
+                Positioned(
+                  top: constraints.maxHeight * 0.06,
+                  right: constraints.maxWidth * 0.05,
+                  child: TextButton(
+                    onPressed: () => _onPressed(context),
+                    child: Text(
+                      AppStrings.skip,
+                      style: AppStyles.buttonTextStyle,
                     ),
                   ),
                 ),
-              ),
-
-              // Subtitle
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 1.h),
-                child:  Text(
-                  AppStrings.splashSubtitle,
-                  textAlign: TextAlign.left,
-                  style: AppStyles.subtitleStyle,
-                ),
-              ),
-
-              // Dots Indicator
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                child: const SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      AnimatedDot(isActive: false),
-                      AnimatedDot(isActive: true),
-                      AnimatedDot(isActive: false),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Bottom Spacing
-              SizedBox(height: 5.h),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// Animated Dot Widget
-class AnimatedDot extends StatelessWidget {
-  final bool isActive;
-  const AnimatedDot({super.key, required this.isActive});
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      margin: EdgeInsets.symmetric(horizontal: 1.w),
-      width: isActive ? 3.w : 2.w,
-      height: isActive ? 3.w : 2.w,
-      decoration: BoxDecoration(
-        color: isActive ? AppColors.activeDot : AppColors.inactiveDot,
-        shape: BoxShape.circle,
-      ),
-    );
-  }
-}
-
-// Blurred Circle for Light Effects
-class BlurredCircle extends StatelessWidget {
-  final Color color;
-  final double size;
-
-  const BlurredCircle({required this.color, required this.size, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
-        child: Container(
-          color: Colors.transparent,
+              ],
+            );
+          },
         ),
       ),
     );
