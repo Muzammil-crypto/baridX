@@ -12,12 +12,12 @@ class SplashCubit extends Cubit<int> {
       vsync: vsync,
     );
 
-    fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+    fadeAnimation = Tween<double>(begin: 0.0, end: 2.0).animate(
       CurvedAnimation(parent: animationController, curve: Curves.easeIn),
     );
 
     slideAnimation =
-        Tween<Offset>(begin: const Offset(0.0, 0.2), end: Offset.zero).animate(
+        Tween<Offset>(begin: const Offset(0.0, 0.4), end: Offset.zero).animate(
       CurvedAnimation(parent: animationController, curve: Curves.easeOut),
     );
     // Play animation on app start

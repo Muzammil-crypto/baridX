@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late SplashCubit splashCubit;
   void _onPressed(BuildContext context) {
-    AppRouter.goCustomerInfo();
+    AppRouter.goHome();
   }
 
   @override
@@ -87,12 +87,13 @@ class _SplashScreenState extends State<SplashScreen>
                       ),
                     ),
 
-                    // Dots Indicator
+                    // Dots Indicators
                     BlocBuilder<SplashCubit, int>(
                       builder: (context, pageIndex) {
                         return Align(
                           alignment: Alignment.center,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: List.generate(
                               3,

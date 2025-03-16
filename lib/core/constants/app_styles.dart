@@ -56,7 +56,7 @@ class AppStyles {
 
   static TextStyle get buttonTextStyle => TextStyle(
         fontSize: 15.sp,
-        color: AppColors.textSecondary,
+        color: AppColors.textPrimary,
       );
 
   // Dot Indicator Styles

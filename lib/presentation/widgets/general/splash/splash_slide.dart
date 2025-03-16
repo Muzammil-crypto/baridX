@@ -6,6 +6,7 @@ import 'package:baridx_orderflow/logic/cubits/splash_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
 class SplashSlide extends StatelessWidget {
   final int index;
   const SplashSlide({super.key, required this.index});
@@ -24,14 +25,13 @@ class SplashSlide extends StatelessWidget {
               child: FadeTransition(
                 opacity: splashCubit.fadeAnimation,
                 child: Image.asset(
-                  AppAssets.headphones,
+                  AppStrings.splashData[index]["image"]!,
                   width: 50.w,
                 ),
               ),
             ),
           ),
         ),
-
         Expanded(
           flex: 3,
           child: Padding(
@@ -48,10 +48,11 @@ class SplashSlide extends StatelessWidget {
                       text: TextSpan(
                         style: AppStyles.titleStyle,
                         children: [
-                          const TextSpan(text: AppStrings.appName),
+                          TextSpan(text: AppStrings.splashData[index]["title"]),
                           TextSpan(
                             text: ".",
-                            style: AppStyles.titleStyle.copyWith(color: AppColors.primary),
+                            style: AppStyles.titleStyle
+                                .copyWith(color: AppColors.primary),
                           ),
                         ],
                       ),
