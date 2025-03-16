@@ -38,6 +38,8 @@ class AppStrings {
     },
   ];
 
+  static const List<String> items = ["Small", "Medium", "Large"];
+
   //Home Screen
   static const String homeScreenTitle = "Welcome to BaridX";
   static const String homeScreenSubtitle =
@@ -69,6 +71,15 @@ class AppStrings {
   static const String packageType = "Package Type";
   static const String weightHint = "Weight (kg)";
   static const String deliveryNotesHint = "Delivery Notes (Optional)";
+  static const String packageDetailsTitle = "Package Details";
+  static const String packageDetailsSubtitle =
+      "Provide details about your package to ensure accurate delivery.";
+  static const String packageTypeLabel = "Package Type";
+  static const String packageTypeHint = "Select Package Type";
+  static const String packageWeightLabel = "Weight (kg)";
+  static const String packageWeightHint = "Enter weight in kg";
+  static const String deliveryNotesLabel = "Delivery Notes";
+  static const String nextButton = "Next";
 
   // Payment Step
   static const String paymentMethod = "Select Payment Method";

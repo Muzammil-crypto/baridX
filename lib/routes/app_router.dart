@@ -48,9 +48,10 @@ class AppRouter {
   }
 
   // Custom Animated Route Method
-  static GoRoute _animatedRoute(String path, Widget screen, {TransitionType transitionType = TransitionType.fade}) {
+  static GoRoute _animatedRoute(String path, Widget screen, {TransitionType transitionType = TransitionType.fade, GoRouterWidgetBuilder? builder}) {
     return GoRoute(
       path: path,
+      builder: builder,
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
         child: screen,

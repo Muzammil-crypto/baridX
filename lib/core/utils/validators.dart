@@ -1,8 +1,17 @@
 class Validators {
+
+  /// Validate a dropdown field
+  static String? validateDropdownField(String? value, String fieldName) {
+    if (value == null || value.trim().isEmpty) {
+      return "Please select an option";
+    }
+    return null;
+  }
+
   /// Validate if a field is not empty
   static String? validateRequiredField(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
-      return "$fieldName is required";
+      return "Please enter your $fieldName";
     }
     return null;
   }
@@ -11,9 +20,9 @@ class Validators {
   static String? validatePhoneNumber(String? value) {
     final RegExp phoneRegex = RegExp(r'^\+?[0-9]{7,15}$');
     if (value == null || value.isEmpty) {
-      return "Phone number is required";
+      return "Please enter your phone number";
     } else if (!phoneRegex.hasMatch(value)) {
-      return "Invalid phone number";
+      return "Your phone number is invalid";
     }
     return null;
   }

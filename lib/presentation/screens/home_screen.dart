@@ -77,6 +77,14 @@ class _HomeScreenState extends State<HomeScreen>
                         icon: Icons.music_note_rounded,
                       ),
                     ],
+                  //   children: List.generate(
+                  //     4,
+                  //     (index) => _buildFeatureCard(
+                  //       title: AppStrings.discoverMusicTitle,
+                  //       description: AppStrings.discoverMusicDescription,
+                  //       icon: Icons.music_note_rounded,
+                  //     ),
+                  // ),
                   ),
                 ),
                 Padding(
