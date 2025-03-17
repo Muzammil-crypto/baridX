@@ -37,8 +37,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: homeCubit,
-      child: AppLayout(
-        showBackButton: false,
+      child: AppLayout.noBackButton(
         child: LayoutBuilder(
           builder: (context, constraints) {
             return Column(
@@ -78,14 +77,14 @@ class _HomeScreenState extends State<HomeScreen>
                         icon: Icons.music_note_rounded,
                       ),
                     ],
-                  //   children: List.generate(
-                  //     4,
-                  //     (index) => _buildFeatureCard(
-                  //       title: AppStrings.discoverMusicTitle,
-                  //       description: AppStrings.discoverMusicDescription,
-                  //       icon: Icons.music_note_rounded,
-                  //     ),
-                  // ),
+                    //   children: List.generate(
+                    //     4,
+                    //     (index) => _buildFeatureCard(
+                    //       title: AppStrings.discoverMusicTitle,
+                    //       description: AppStrings.discoverMusicDescription,
+                    //       icon: Icons.music_note_rounded,
+                    //     ),
+                    // ),
                   ),
                 ),
                 Padding(

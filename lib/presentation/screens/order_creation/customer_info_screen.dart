@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import '../../../core/constants/app_strings.dart';
-import '../../../core/constants/app_colors.dart';
 import '../../../dependency_injection/service_locator.dart';
 import '../../../logic/cubits/customer_info_cubit.dart';
 import '../../layouts/app_layout.dart';
@@ -34,7 +33,8 @@ class CustomerInfoScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const CustomHeader(title: AppStrings.infoScreenTitle,
+                            const CustomHeader(
+                                title: AppStrings.infoScreenTitle,
                                 subtitle: AppStrings.infoScreenSubTitle),
                             Expanded(
                               child: Form(
@@ -85,7 +85,6 @@ class CustomerInfoScreen extends StatelessWidget {
                               ),
                             ),
 
-                            // 🎵 "Next" Button with Animation
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 3.h),
                               child: AnimatedGradientButton(

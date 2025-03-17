@@ -1,4 +1,3 @@
-import 'package:baridx_orderflow/core/constants/app_colors.dart';
 import 'package:baridx_orderflow/core/constants/app_strings.dart';
 import 'package:baridx_orderflow/core/extensions/extensions.dart';
 import 'package:baridx_orderflow/core/utils/validators.dart';

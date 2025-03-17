@@ -2,47 +2,71 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/constants/app_enums.dart';
 import '../../routes/app_router.dart';
+import 'package:equatable/equatable.dart';
 
-class PaymentCubit extends Cubit<PaymentMethod> {
-  /// Controllers and form key
+class PaymentCubit extends Cubit<PaymentState> {
   final payLaterKey = GlobalKey<FormState>();
   final payViaCardKey = GlobalKey<FormState>();
   final TextEditingController cardNumberController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
 
-  PaymentCubit() : super(PaymentMethod.creditCard);
+  PaymentCubit() : super(const PaymentState());
 
   void selectPaymentMethod(PaymentMethod method) {
-    emit(method);
+    emit(state.copyWith(selectedMethod: method));
+  }
+
+  void updateCardNumber(String number) {
+    emit(state.copyWith(cardNumber: number));
+  }
+
+  void updatePhoneNumber(String number) {
+    emit(state.copyWith(phoneNumber: number));
   }
 
   void handleOnPressed() {
-    switch (state) {
+    switch (state.selectedMethod) {
       case PaymentMethod.creditCard:
-        handlePayViaCard();
+        if (payViaCardKey.currentState!.validate()) {
+          AppRouter.goReviewSubmit();
+        }
         break;
       case PaymentMethod.cashOnDelivery:
-        handleCashOnDelivery();
+        AppRouter.goReviewSubmit();
         break;
       case PaymentMethod.payLater:
-        handlePayLater();
+        if (payLaterKey.currentState!.validate()) {
+          AppRouter.goReviewSubmit();
+        }
         break;
     }
   }
+}
 
-  void handlePayLater() {
-    if (payLaterKey.currentState!.validate()) {
-      AppRouter.goReviewSubmit();
-    }
+
+class PaymentState extends Equatable {
+  final PaymentMethod selectedMethod;
+  final String cardNumber;
+  final String phoneNumber;
+
+  const PaymentState({
+    this.selectedMethod = PaymentMethod.creditCard,
+    this.cardNumber = "",
+    this.phoneNumber = "",
+  });
+
+  PaymentState copyWith({
+    PaymentMethod? selectedMethod,
+    String? cardNumber,
+    String? phoneNumber,
+  }) {
+    return PaymentState(
+      selectedMethod: selectedMethod ?? this.selectedMethod,
+      cardNumber: cardNumber ?? this.cardNumber,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+    );
   }
 
-  void handlePayViaCard() {
-    if (payViaCardKey.currentState!.validate()) {
-      AppRouter.goReviewSubmit();
-    }
-  }
-
-  void handleCashOnDelivery() {
-    AppRouter.goReviewSubmit();
-  }
+  @override
+  List<Object> get props => [selectedMethod, cardNumber, phoneNumber];
 }

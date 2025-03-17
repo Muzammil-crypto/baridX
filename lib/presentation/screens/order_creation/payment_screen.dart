@@ -29,30 +29,26 @@ class PaymentScreen extends StatelessWidget {
                   child: IntrinsicHeight(
                     child: Column(
                       children: [
-                        BlocSelector<PaymentCubit, PaymentMethod,
-                            PaymentMethod>(
-                          selector: (state) => state,
-                          builder: (context, selectedMethod) {
+                        BlocBuilder<PaymentCubit, PaymentState>(
+                          builder: (context, state) {
                             return PaymentMethodSelector(
-                              selectedMethod: selectedMethod,
-                              onSelect: (method) =>
-                                  context.payCubit.selectPaymentMethod(method),
+                              selectedMethod: state.selectedMethod,
+                              onSelect: (method) => context
+                                  .read<PaymentCubit>()
+                                  .selectPaymentMethod(method),
                             );
                           },
                         ),
-
                         Expanded(
-                          child: BlocSelector<PaymentCubit, PaymentMethod,
-                              PaymentMethod>(
-                            selector: (state) => state,
-                            builder: (context, selectedMethod) {
+                          child: BlocBuilder<PaymentCubit, PaymentState>(
+                            builder: (context, state) {
                               return AnimatedSwitcher(
                                 duration: const Duration(milliseconds: 400),
                                 transitionBuilder: (child, animation) {
                                   return FadeTransition(
                                       opacity: animation, child: child);
                                 },
-                                child: _buildPaymentUI(selectedMethod, context),
+                                child: _buildPaymentUI(state, context),
                               );
                             },
                           ),
@@ -80,10 +76,9 @@ class PaymentScreen extends StatelessWidget {
   }
 
   // 🎨 Dynamic UI Based on Selected Payment Method
-  Widget _buildPaymentUI(PaymentMethod method, BuildContext context) {
+  Widget _buildPaymentUI(PaymentState state, BuildContext context) {
     final payCubit = context.payCubit;
-
-    switch (method) {
+    switch (state.selectedMethod) {
       case PaymentMethod.creditCard:
         return PaymentInfoWidget(
           title: AppStrings.creditCardTitle,

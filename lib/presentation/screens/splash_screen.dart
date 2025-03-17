@@ -1,12 +1,11 @@
 import 'package:baridx_orderflow/core/constants/app_strings.dart';
 import 'package:baridx_orderflow/core/constants/app_styles.dart';
+import 'package:baridx_orderflow/presentation/layouts/app_layout.dart';
 import 'package:baridx_orderflow/presentation/widgets/general/splash/dot_indicators.dart';
 import 'package:baridx_orderflow/presentation/widgets/general/splash/splash_slide.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../core/constants/app_colors.dart';
 import '../../logic/cubits/splash_cubit.dart';
-import '../widgets/general/layout_circles.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +16,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late SplashCubit splashCubit;
-
 
   @override
   void initState() {
@@ -35,36 +33,11 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: splashCubit,
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundLight,
-        body: LayoutBuilder(
+      child: AppLayout.noBackButton(
+        child: LayoutBuilder(
           builder: (context, constraints) {
             return Stack(
               children: [
-                // Background Gradient
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: AppColors.appGradient,
-                  ),
-                ),
-
-                // Blurred Circles
-                Positioned(
-                  top: constraints.maxHeight * 0.25,
-                  left: constraints.maxWidth * 0.25,
-                  child: BlurredCircle(
-                      color: AppColors.blurSoftPurple,
-                      size: constraints.maxWidth * 0.6),
-                ),
-                Positioned(
-                  bottom: -constraints.maxHeight * 0.02,
-                  left: -constraints.maxWidth * 0.05,
-                  child: BlurredCircle(
-                      color: AppColors.blurSoftPurple,
-                      size: constraints.maxWidth * 0.4),
-                ),
-
-                // PageView with Animated Dots
                 Column(
                   children: [
                     Expanded(
@@ -106,8 +79,8 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
                 // Skip Button
                 Positioned(
-                  top: constraints.maxHeight * 0.06,
-                  right: constraints.maxWidth * 0.05,
+                  top: 0,
+                  right: 0,
                   child: TextButton(
                     onPressed: splashCubit.onPressed,
                     child: Text(

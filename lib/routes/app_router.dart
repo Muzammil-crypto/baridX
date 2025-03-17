@@ -39,7 +39,7 @@ class AppRouter {
     _animatedRoute('/customer-info', const CustomerInfoScreen(), transitionType: TransitionType.slide),
     _animatedRoute('/package-details', const PackageDetailsScreen(), transitionType: TransitionType.fade),
     _animatedRoute('/payment', const PaymentScreen(), transitionType: TransitionType.scale),
-    _animatedRoute('/review-submit', const ReviewSubmitScreen(), transitionType: TransitionType.slide),
+    _animatedRoute('/review-submit', ReviewSubmitScreen(), transitionType: TransitionType.slide),
   ];
 
   /// Helper method to create a GoRoute with custom transitions

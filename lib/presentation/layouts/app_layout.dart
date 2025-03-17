@@ -5,18 +5,22 @@ import '../../core/constants/app_colors.dart';
 import '../widgets/general/layout_circles.dart';
 
 class AppLayout extends StatelessWidget {
-  final bool isAppBar;
   final Widget child;
   final bool showBackButton;
   final List<Widget>? actions;
 
   const AppLayout({
     super.key,
-    this.isAppBar = true,
-    required this.child,
     this.showBackButton = true,
+    required this.child,
     this.actions,
   });
+
+  const AppLayout.noBackButton({
+    super.key,
+    required this.child,
+    this.actions,
+  }) : showBackButton = false;
 
   @override
   Widget build(BuildContext context) {
