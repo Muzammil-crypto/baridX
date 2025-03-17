@@ -25,10 +25,9 @@ class PaymentInfoWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // 🔹 Animated Icon
             Icon(
               icon,
-              size: 14.w,
+              size: 15.h,
               color: AppColors.primary.withOpacity(0.8),
             ),
             SizedBox(height: 2.h),

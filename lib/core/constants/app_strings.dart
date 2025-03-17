@@ -107,7 +107,10 @@ class AppStrings {
       "Make sure someone is available at the provided address to receive the order.\n"
       "Any cancellation or non-acceptance may affect your future COD orders.\n\n"
       "If you have any questions, feel free to contact our support team. Happy Shopping! 🎶";
-
+  // On Delivery
+  static const String onDeliveryTitle = "Receive & Pay";
+  // Go Back
+  static const String goBack = "Go Back";
   /// Review & Submit
   static const String reviewOrder = "Review & Submit";
   static const String customerDetails = "Customer Details";

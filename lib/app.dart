@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'core/constants/app_strings.dart';
+import 'core/services/dialog_service.dart';
+import 'dependency_injection/service_locator.dart';
 import 'routes/app_router.dart';
 
 class MyApp extends StatelessWidget {

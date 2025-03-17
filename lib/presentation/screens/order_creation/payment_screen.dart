@@ -1,84 +1,76 @@
 import 'package:baridx_orderflow/core/constants/app_strings.dart';
-import 'package:baridx_orderflow/core/extensions/extensions.dart';
 import 'package:baridx_orderflow/core/utils/validators.dart';
-import 'package:baridx_orderflow/presentation/widgets/base/custom_button.dart';
+import 'package:baridx_orderflow/presentation/widgets/base/animated_gradient_button.dart';
 import 'package:baridx_orderflow/presentation/widgets/base/glass_input.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import '../../../core/constants/app_enums.dart';
-import '../../../logic/cubits/payment_cubit.dart';
+import '../../../dependency_injection/service_locator.dart';
 import '../../layouts/app_layout.dart';
 import '../../widgets/general/payment/payment_info_widget.dart';
 import '../../widgets/general/payment/payment_method_selector.dart';
+import '../../../logic/cubits/payment_cubit.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PaymentCubit(),
-      child: Builder(builder: (context) {
-        return AppLayout(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: IntrinsicHeight(
-                    child: Column(
-                      children: [
-                        BlocBuilder<PaymentCubit, PaymentState>(
-                          builder: (context, state) {
-                            return PaymentMethodSelector(
-                              selectedMethod: state.selectedMethod,
-                              onSelect: (method) => context
-                                  .read<PaymentCubit>()
-                                  .selectPaymentMethod(method),
-                            );
-                          },
-                        ),
-                        Expanded(
-                          child: BlocBuilder<PaymentCubit, PaymentState>(
-                            builder: (context, state) {
-                              return AnimatedSwitcher(
-                                duration: const Duration(milliseconds: 400),
-                                transitionBuilder: (child, animation) {
-                                  return FadeTransition(
-                                      opacity: animation, child: child);
-                                },
-                                child: _buildPaymentUI(state, context),
-                              );
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 2.h),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: CustomButton(
-                              text: AppStrings.next,
-                              onPressed: context.payCubit.handleOnPressed,
-                            ),
-                          ),
-                        ),
-                      ],
+    final payCubit = locator<PaymentCubit>(); // Access cubit from locator
+
+    return AppLayout.noBackButton(
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    ValueListenableBuilder<PaymentMethod>(
+                      valueListenable: payCubit.selectedMethod,
+                      builder: (context, method, _) {
+                        return PaymentMethodSelector(
+                          selectedMethod: method,
+                          onSelect: (method) => payCubit.selectPaymentMethod(method),
+                        );
+                      },
                     ),
-                  ),
+
+                    Expanded(
+                      child: ValueListenableBuilder<PaymentMethod>(
+                        valueListenable: payCubit.selectedMethod,
+                        builder: (context, method, _) {
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 400),
+                            transitionBuilder: (child, animation) {
+                              return FadeTransition(opacity: animation, child: child);
+                            },
+                            child: _buildPaymentUI(method, payCubit),
+                          );
+                        },
+                      ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 2.h),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: AnimatedGradientButton(text: AppStrings.next, onPressed: payCubit.handleOnPressed),
+                      ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          ),
-        );
-      }),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
-  // 🎨 Dynamic UI Based on Selected Payment Method
-  Widget _buildPaymentUI(PaymentState state, BuildContext context) {
-    final payCubit = context.payCubit;
-    switch (state.selectedMethod) {
+  Widget _buildPaymentUI(PaymentMethod method, PaymentCubit payCubit) {
+    switch (method) {
       case PaymentMethod.creditCard:
         return PaymentInfoWidget(
           title: AppStrings.creditCardTitle,
@@ -118,6 +110,9 @@ class PaymentScreen extends StatelessWidget {
             ),
           ),
         );
+      case PaymentMethod.goBack:
+        return const Text("Red");
+
     }
   }
 }

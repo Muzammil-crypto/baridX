@@ -1,4 +1,3 @@
-import 'package:baridx_orderflow/core/constants/app_asssets.dart';
 import 'package:baridx_orderflow/core/constants/app_colors.dart';
 import 'package:baridx_orderflow/core/constants/app_strings.dart';
 import 'package:baridx_orderflow/core/constants/app_styles.dart';
@@ -18,7 +17,7 @@ class SplashSlide extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          flex: 12,
+          flex: 2,
           child: Center(
             child: SlideTransition(
               position: splashCubit.slideAnimation,
@@ -33,9 +32,9 @@ class SplashSlide extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 3,
+          flex: 0,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6.w),
+            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,

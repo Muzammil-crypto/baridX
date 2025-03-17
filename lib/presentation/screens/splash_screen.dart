@@ -5,6 +5,7 @@ import 'package:baridx_orderflow/presentation/widgets/general/splash/dot_indicat
 import 'package:baridx_orderflow/presentation/widgets/general/splash/splash_slide.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 import '../../logic/cubits/splash_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -34,64 +35,48 @@ class _SplashScreenState extends State<SplashScreen>
     return BlocProvider.value(
       value: splashCubit,
       child: AppLayout.noBackButton(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return Stack(
-              children: [
-                Column(
-                  children: [
-                    Expanded(
-                      flex: 8,
-                      child: BlocBuilder<SplashCubit, int>(
-                        builder: (context, pageIndex) {
-                          return PageView.builder(
-                            onPageChanged: (index) {
-                              splashCubit.updatePage(index);
-                            },
-                            itemCount: 3,
-                            itemBuilder: (context, index) {
-                              return SplashSlide(index: index);
-                            },
-                          );
-                        },
-                      ),
-                    ),
-
-                    // Dots Indicators
-                    BlocBuilder<SplashCubit, int>(
-                      builder: (context, pageIndex) {
-                        return Align(
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: List.generate(
-                              3,
-                              (index) =>
-                                  AnimatedDot(isActive: index == pageIndex),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const Spacer(),
-                  ],
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: TextButton(
+                onPressed: splashCubit.onPressed,
+                child: Text(
+                  AppStrings.skip,
+                  style: AppStyles.buttonTextStyle,
                 ),
-                // Skip Button
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: TextButton(
-                    onPressed: splashCubit.onPressed,
-                    child: Text(
-                      AppStrings.skip,
-                      style: AppStyles.buttonTextStyle,
+              ),
+            ),
+            Expanded(
+              child: BlocBuilder<SplashCubit, int>(
+                builder: (context, pageIndex) {
+                  return PageView.builder(
+                    onPageChanged: (index) {
+                      splashCubit.updatePage(index);
+                    },
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return SplashSlide(index: index);
+                    },
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              child: BlocBuilder<SplashCubit, int>(
+                builder: (context, pageIndex) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: List.generate(
+                      3,
+                      (index) => AnimatedDot(isActive: index == pageIndex),
                     ),
-                  ),
-                ),
-              ],
-            );
-          },
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

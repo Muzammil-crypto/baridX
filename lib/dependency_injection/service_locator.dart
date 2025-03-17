@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/network/api_client.dart';
+import '../core/services/dialog_service.dart';
 import '../logic/cubits/order_cubit.dart';
 
 final GetIt locator = GetIt.instance;
@@ -17,6 +18,7 @@ final GetIt locator = GetIt.instance;
 void setupLocator() {
   locator.registerLazySingleton<GoRouter>(() => AppRouter.router);
   locator.registerLazySingleton(() => ApiClient(baseUrl: Endpoints.baseUrl));
+  locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => CustomerInfoCubit());
   locator.registerLazySingleton(() => PackageDetailsCubit());
   locator.registerLazySingleton<PaymentCubit>(() => PaymentCubit());

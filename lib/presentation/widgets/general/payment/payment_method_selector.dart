@@ -1,5 +1,6 @@
 import 'package:baridx_orderflow/core/constants/app_colors.dart';
 import 'package:baridx_orderflow/core/constants/app_strings.dart';
+import 'package:baridx_orderflow/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../core/constants/app_enums.dart';
@@ -9,21 +10,22 @@ class PaymentMethodSelector extends StatelessWidget {
   final ValueChanged<PaymentMethod> onSelect;
 
   const PaymentMethodSelector({
-    Key? key,
+    super.key,
     required this.selectedMethod,
     required this.onSelect,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final methods = {
+      PaymentMethod.goBack: AppStrings.goBack,
       PaymentMethod.creditCard: AppStrings.creditCard,
-      PaymentMethod.cashOnDelivery: AppStrings.cashOnDelivery,
+      PaymentMethod.cashOnDelivery: AppStrings.onDeliveryTitle,
       PaymentMethod.payLater: AppStrings.payLater,
     };
 
     return Container(
-      padding: EdgeInsets.all(2.w),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: AppColors.backgroundLight,
         borderRadius: BorderRadius.circular(12),
@@ -35,10 +37,16 @@ class PaymentMethodSelector extends StatelessWidget {
 
           return Expanded(
             child: GestureDetector(
-              onTap: () => onSelect(entry.key),
+              onTap: () {
+                if (entry.key != PaymentMethod.goBack) {
+                  onSelect(entry.key);
+                } else {
+                  AppRouter.goBack();
+                }
+              },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                padding: EdgeInsets.symmetric(vertical: 1.5.h),
+                padding: const EdgeInsets.symmetric(vertical: 14),
                 decoration: BoxDecoration(
                   color: isSelected ? AppColors.primary : Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
@@ -47,7 +55,9 @@ class PaymentMethodSelector extends StatelessWidget {
                   child: Text(
                     entry.value,
                     style: TextStyle(
-                      color: isSelected ? Colors.white : AppColors.textPrimary,
+                      color: isSelected
+                          ? AppColors.backgroundLight
+                          : AppColors.textPrimary,
                       fontWeight: FontWeight.w600,
                       fontSize: 13.sp,
                     ),

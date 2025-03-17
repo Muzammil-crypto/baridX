@@ -46,7 +46,7 @@ class AppLayout extends StatelessWidget {
           ),
           if (showBackButton)
             Positioned(
-              top: 6.h,
+              top: 8.h,
               left: 6.w,
               child: GestureDetector(
                 onTap: AppRouter.goBack,
