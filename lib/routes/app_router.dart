@@ -1,3 +1,4 @@
+import 'package:baridx_orderflow/core/constants/routes.dart';
 import 'package:baridx_orderflow/dependency_injection/service_locator.dart';
 import 'package:baridx_orderflow/presentation/screens/home_screen.dart';
 import 'package:baridx_orderflow/presentation/screens/introduction/intro_screen.dart';
@@ -11,47 +12,40 @@ import '../presentation/screens/order_creation/payment_screen.dart';
 import '../presentation/screens/order_creation/review_submit_screen.dart';
 
 class AppRouter {
-  static final GoRouter router = GoRouter(
-    routes: [
-      _animatedRoute('/', const IntroScreen(), transitionType: TransitionType.fade),
-      _animatedRoute('/splash', const SplashScreen(), transitionType: TransitionType.scale),
-      _animatedRoute('/home', const HomeScreen(), transitionType: TransitionType.slide),
-      _animatedRoute('/customer-info', const CustomerInfoScreen(), transitionType: TransitionType.slide),
-      _animatedRoute('/package-details', const PackageDetailsScreen(), transitionType: TransitionType.fade),
-      _animatedRoute('/payment', const PaymentScreen(), transitionType: TransitionType.scale),
-      _animatedRoute('/review-submit', const ReviewSubmitScreen(), transitionType: TransitionType.slide),
-    ],
-  );
+  /// GoRouter instance
+  static final GoRouter router = GoRouter(routes: _routes);
 
-  // Navigation Methods
-  static void goIntro() => locator<GoRouter>().go('/');
-
-  static void goSplash() => locator<GoRouter>().push('/splash');
-
-  static void goHome() => locator<GoRouter>().push('/home');
-
-  static void goCustomerInfo() => locator<GoRouter>().push('/customer-info');
-
-  static void goPackageDetails() => locator<GoRouter>().push('/package-details');
-
-  static void goPayment() => locator<GoRouter>().push('/payment');
-
-  static void goReviewSubmit() => locator<GoRouter>().push('/review-submit');
-
+  /// Initialize the AppRouter
+  static void goIntro() => locator<GoRouter>().go(introRoute);
+  static void goSplash() => locator<GoRouter>().push(splashRoute);
+  static void goHome() => locator<GoRouter>().push(homeRoute);
+  static void replaceToHome() => locator<GoRouter>().go(homeRoute);
+  static void goCustomerInfo() => locator<GoRouter>().push(customerInfoRoute);
+  static void goPackageDetails() => locator<GoRouter>().push(packageDetailsRoute);
+  static void goPayment() => locator<GoRouter>().push(paymentRoute);
+  static void goReviewSubmit() => locator<GoRouter>().push(reviewSubmitRoute);
   static void goBack() {
-    final router = locator<GoRouter>();
     if (router.canPop()) {
       router.pop();
     } else {
       goHome();
     }
   }
+  /// List of Routes
+  static final List<GoRoute> _routes = [
+    _animatedRoute('/', const IntroScreen(), transitionType: TransitionType.fade),
+    _animatedRoute('/splash', const SplashScreen(), transitionType: TransitionType.scale),
+    _animatedRoute('/home', const HomeScreen(), transitionType: TransitionType.slide),
+    _animatedRoute('/customer-info', const CustomerInfoScreen(), transitionType: TransitionType.slide),
+    _animatedRoute('/package-details', const PackageDetailsScreen(), transitionType: TransitionType.fade),
+    _animatedRoute('/payment', const PaymentScreen(), transitionType: TransitionType.scale),
+    _animatedRoute('/review-submit', const ReviewSubmitScreen(), transitionType: TransitionType.slide),
+  ];
 
-  // Custom Animated Route Method
-  static GoRoute _animatedRoute(String path, Widget screen, {TransitionType transitionType = TransitionType.fade, GoRouterWidgetBuilder? builder}) {
+  /// Helper method to create a GoRoute with custom transitions
+  static GoRoute _animatedRoute(String path, Widget screen, {TransitionType transitionType = TransitionType.fade}) {
     return GoRoute(
       path: path,
-      builder: builder,
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
         child: screen,
@@ -61,7 +55,8 @@ class AppRouter {
               return FadeTransition(opacity: animation, child: child);
             case TransitionType.slide:
               return SlideTransition(
-                position: animation.drive(Tween(begin: const Offset(1, 0), end: Offset.zero).chain(CurveTween(curve: Curves.easeInOut))),
+                position: animation.drive(Tween(begin: const Offset(1, 0),
+                    end: Offset.zero).chain(CurveTween(curve: Curves.easeInOut))),
                 child: child,
               );
             case TransitionType.scale:

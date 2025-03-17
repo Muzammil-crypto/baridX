@@ -38,6 +38,7 @@ class _IntroScreenState extends State<IntroScreen>
     return BlocProvider.value(
       value: introCubit,
       child: AppLayout(
+        showBackButton: false,
         child: Column(
           children: [
             Expanded(flex: 5, child: Container()),

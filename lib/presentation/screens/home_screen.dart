@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen>
     return BlocProvider.value(
       value: homeCubit,
       child: AppLayout(
+        showBackButton: false,
         child: LayoutBuilder(
           builder: (context, constraints) {
             return Column(

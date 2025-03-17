@@ -6,12 +6,14 @@ final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: AppColors.primary,
   scaffoldBackgroundColor: AppColors.backgroundDark,
+  textTheme: TypographyStyles.textTheme,
   appBarTheme: const AppBarTheme(
     backgroundColor: AppColors.backgroundDark,
-    foregroundColor: Colors.white,
+    titleTextStyle: TextStyle(
+        fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.backgroundLight),
   ),
-  textTheme: TypographyStyles.textTheme,
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(backgroundColor: AppColors.accent),
+  buttonTheme: const ButtonThemeData(
+    buttonColor: AppColors.buttonPrimary,
+    textTheme: ButtonTextTheme.primary,
   ),
 );

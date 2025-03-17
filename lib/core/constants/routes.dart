@@ -1,9 +1,7 @@
-class AppRoutes{
-  static String  get splashRoute => '/';
-  static String  get userInfoRoute => '/user-info';
-  static String  get homeRoute => '/home';
-  static String  get packageInfoRoute => '/package-info';
-  static String  get paymentInfoRoute => '/payment-info';
-  static String  get paymentSuccessRoute => '/payment-success';
-  static String  get paymentFailedRoute => '/payment-failed';
-}
+String get introRoute => '/';
+String get splashRoute => '/splash';
+String get homeRoute => '/home';
+String get customerInfoRoute => '/customer-info';
+String get packageDetailsRoute => '/package-details';
+String get paymentRoute => '/payment';
+String get reviewSubmitRoute => '/review-submit';

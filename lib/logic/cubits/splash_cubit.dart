@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/animation.dart';
 
+import '../../routes/app_router.dart';
+
 class SplashCubit extends Cubit<int> {
+
   late AnimationController animationController;
   late Animation<double> fadeAnimation;
   late Animation<Offset> slideAnimation;
@@ -34,7 +37,9 @@ class SplashCubit extends Cubit<int> {
   void startAnimation() {
     animationController.forward(from: 0.0);
   }
-
+  void onPressed() {
+    AppRouter.goHome();
+  }
   @override
   Future<void> close() {
     animationController.dispose();

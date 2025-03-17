@@ -1,13 +1,12 @@
 import 'package:baridx_orderflow/core/constants/app_strings.dart';
 import 'package:baridx_orderflow/core/constants/app_styles.dart';
-import 'package:baridx_orderflow/presentation/layouts/app_layout.dart';
 import 'package:baridx_orderflow/presentation/widgets/general/splash/dot_indicators.dart';
 import 'package:baridx_orderflow/presentation/widgets/general/splash/splash_slide.dart';
-import 'package:baridx_orderflow/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/constants/app_colors.dart';
 import '../../logic/cubits/splash_cubit.dart';
+import '../widgets/general/layout_circles.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,14 +17,12 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late SplashCubit splashCubit;
-  void _onPressed(BuildContext context) {
-    AppRouter.goHome();
-  }
+
 
   @override
   void initState() {
     super.initState();
-    splashCubit = SplashCubit(vsync: this); // Pass TickerProvider to Cubit
+    splashCubit = SplashCubit(vsync: this);
   }
 
   @override
@@ -112,7 +109,7 @@ class _SplashScreenState extends State<SplashScreen>
                   top: constraints.maxHeight * 0.06,
                   right: constraints.maxWidth * 0.05,
                   child: TextButton(
-                    onPressed: () => _onPressed(context),
+                    onPressed: splashCubit.onPressed,
                     child: Text(
                       AppStrings.skip,
                       style: AppStyles.buttonTextStyle,

@@ -1,5 +1,6 @@
 import 'package:baridx_orderflow/core/utils/validators.dart';
 import 'package:baridx_orderflow/presentation/widgets/base/animated_gradient_button.dart';
+import 'package:baridx_orderflow/presentation/widgets/base/app_header.dart';
 import 'package:baridx_orderflow/presentation/widgets/base/glass_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,33 +34,8 @@ class CustomerInfoScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            AnimatedContainer(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeInOut,
-                              padding: EdgeInsets.only(top: 5.h, bottom: 2.h),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    AppStrings.infoScreenTitle,
-                                    style: TextStyle(
-                                      fontSize: 22.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(height: 1.h),
-                                  Text(
-                                    AppStrings.infoScreenSubTitle,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: AppColors.textSecondary,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
+                            const CustomHeader(title: AppStrings.infoScreenTitle,
+                                subtitle: AppStrings.infoScreenSubTitle),
                             Expanded(
                               child: Form(
                                 key: _.formKey,
