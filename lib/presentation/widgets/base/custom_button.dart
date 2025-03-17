@@ -1,3 +1,4 @@
+import 'package:baridx_orderflow/core/constants/app_dimensions.dart';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_styles.dart';
@@ -23,7 +24,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? double.infinity,
+      width: width ?? AppDimensions.getScreenWidth(context),
       height: height ?? 50.0,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

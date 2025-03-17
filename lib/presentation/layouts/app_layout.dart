@@ -2,7 +2,7 @@ import 'package:baridx_orderflow/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../core/constants/app_colors.dart';
-import '../widgets/general/layout_circles.dart';
+import '../widgets/general/layout/layout_circles.dart';
 
 class AppLayout extends StatelessWidget {
   final Widget child;

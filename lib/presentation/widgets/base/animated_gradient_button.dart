@@ -1,14 +1,14 @@
 import 'package:baridx_orderflow/core/constants/app_colors.dart';
+import 'package:baridx_orderflow/core/constants/app_dimensions.dart';
 import 'package:baridx_orderflow/logic/cubits/button_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
 
 class AnimatedGradientButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const AnimatedGradientButton({Key? key, required this.text, required this.onPressed}) : super(key: key);
+  const AnimatedGradientButton({super.key, required this.text, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class AnimatedGradientButton extends StatelessWidget {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 400),
               height: 50,
-              width: 100.w,
+              width: AppDimensions.buttonWidth,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [AppColors.primary, AppColors.secondary],

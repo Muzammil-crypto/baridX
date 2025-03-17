@@ -2,7 +2,7 @@ import 'package:baridx_orderflow/core/constants/app_colors.dart';
 import 'package:baridx_orderflow/core/constants/app_dimensions.dart';
 import 'package:baridx_orderflow/core/constants/app_styles.dart';
 import 'package:baridx_orderflow/core/utils/validators.dart';
-import 'package:baridx_orderflow/logic/cubits/textfield_cubit.dart';
+import 'package:baridx_orderflow/logic/cubits/glass_input_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -15,13 +15,13 @@ class GlassDropdown extends StatefulWidget {
   final ValueChanged<String?> onChanged;
 
   const GlassDropdown({
-    Key? key,
+    super.key,
     required this.label,
     required this.hintText,
     required this.items,
     this.selectedValue,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   _GlassDropdownState createState() => _GlassDropdownState();

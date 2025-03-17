@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../core/constants/app_colors.dart';
+import '../../../core/constants/app_styles.dart';
 
 class CustomHeader extends StatefulWidget {
   final String title;
@@ -35,7 +34,6 @@ class _CustomHeaderState extends State<CustomHeader> {
       duration: const Duration(milliseconds: 800),
       curve: Curves.easeInOut,
       padding: EdgeInsets.only(top: isAnimated ? 5.h : 3.h, bottom: 2.h),
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,11 +43,7 @@ class _CustomHeaderState extends State<CustomHeader> {
               opacity: isAnimated ? 1.0 : 0.0,
               child: Text(
                 widget.title,
-                style: TextStyle(
-                  fontSize: 22.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
+                style: AppStyles.headerTitleStyle,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -60,10 +54,7 @@ class _CustomHeaderState extends State<CustomHeader> {
               opacity: isAnimated ? 1.0 : 0.0,
               child: Text(
                 widget.subtitle,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: AppColors.textSecondary,
-                ),
+                style: AppStyles.headerSubtitleStyle,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -73,4 +64,3 @@ class _CustomHeaderState extends State<CustomHeader> {
     );
   }
 }
-

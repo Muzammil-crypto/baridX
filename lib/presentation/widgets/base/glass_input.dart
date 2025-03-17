@@ -1,7 +1,7 @@
 import 'package:baridx_orderflow/core/constants/app_colors.dart';
 import 'package:baridx_orderflow/core/constants/app_dimensions.dart';
 import 'package:baridx_orderflow/core/constants/app_styles.dart';
-import 'package:baridx_orderflow/logic/cubits/textfield_cubit.dart';
+import 'package:baridx_orderflow/logic/cubits/glass_input_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -15,14 +15,14 @@ class GlassInput extends StatefulWidget {
   final bool obscureText;
 
   const GlassInput({
-    Key? key,
+    super.key,
     required this.label,
     required this.hintText,
     required this.controller,
     this.keyboardType,
     this.validator,
     this.obscureText = false,
-  }) : super(key: key);
+  });
 
   @override
   _GlassInputState createState() => _GlassInputState();
@@ -56,7 +56,7 @@ class _GlassInputState extends State<GlassInput>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.label, style: const TextStyle(fontWeight: FontWeight.w600)),
+              Text(widget.label, style: AppStyles.labelTextStyle),
               SizedBox(height: 0.5.h),
               AnimatedBuilder(
                 animation: textFieldCubit.shakeAnimation,
