@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'api_exceptions.dart';
 
 class ApiResponseHandler {
-  static dynamic handleResponse(http.Response response) {
+  static dynamic handleResponse(response) {
     switch (response.statusCode) {
       case 200:
       case 201:
