@@ -32,16 +32,18 @@ locator.registerFactory(() => OrderCubit(locator<OrderRepository>()));
 final paymentCubit = locator<PaymentCubit>();
 ```
 
-### **4️⃣ Why GoRouter?**
+## 📌 Optimizations
 
-- **Declarative & Flexible Routing**
-- **Custom Transitions for Smooth UI**
+✅ **Lazy Initialization**\
+✅ **Scoped State Handling**\
+✅ **Optimized Routing & UI Transitions**\
+✅ **Clean & Maintainable Code**\
+✅ **Global Dialog Management**\
+✅ **Reusable UI Components & Layout**\
+✅ **Structured API Handling for Scalability**
 
-```dart
-static void goPayment() => locator<GoRouter>().push(paymentRoute);
-```
 
-## 📌 Additional Enhancements
+## 📌 Core Features
 
 ### **🔹 Global DialogService**
 
@@ -73,38 +75,14 @@ static void goPayment() => locator<GoRouter>().push(paymentRoute);
 - **IntroScreen & Splash Screen** with three onboarding slides.
 - **HomeScreen** with basic details and navigation options.
 
-### **🔹 Generic Animation Function**
-
-- Created a **reusable function** to handle **animated screen transitions** throughout the app.
-
-### **🔹 Centralized Logic in Cubits**
-
-- All business logic is **contained within Cubits** and accessed via **GetIt locator** for better structure and **testability**.
-
 ## 📂 Folder Structure
 
 ```
 lib/
 │── core/                 # Constants, Utilities, API Configurations
 │── data/                 # Repositories, Models
-│── domain/               # Business Logic (Use Cases)
 │── logic/                # State Management (Cubits)
 │── presentation/         # UI Screens, Components
 │── routes/               # GoRouter Navigation Setup
 │── dependency_injection/ # GetIt Service Locator
 ```
-
-## 📌 Optimizations
-
-✅ **Lazy Initialization**\
-✅ **Scoped State Handling**\
-✅ **Optimized Routing & UI Transitions**\
-✅ **Clean & Maintainable Code**\
-✅ **Global Dialog Management**\
-✅ **Reusable UI Components & Layout**\
-✅ **Structured API Handling for Scalability**
-
-## 🔹 Final Thoughts
-
-Built with **best practices**, ensuring a **modular, scalable, and testable architecture**. 🚀
-
