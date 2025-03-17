@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_styles.dart';
 
 class OrderDetailSection extends StatelessWidget {
   final String title;
@@ -22,11 +21,7 @@ class OrderDetailSection extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primary,
-            ),
+            style: AppStyles.orderDetailTitleStyle,
           ),
           const Divider(),
           ...details.map(
@@ -34,10 +29,7 @@ class OrderDetailSection extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 0.7.h),
               child: Text(
                 detail,
-                style: TextStyle(
-                  fontSize: 13.sp,
-                  color: AppColors.textPrimary,
-                ),
+                style: AppStyles.orderDetailTextStyle,
               ),
             ),
           ),

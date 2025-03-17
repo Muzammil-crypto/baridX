@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../base/app_header.dart';
+import '../../base/custom_header.dart';
 
 class PaymentInfoWidget extends StatelessWidget {
   final String title;

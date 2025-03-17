@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../../dependency_injection/service_locator.dart';
 import '../../layouts/app_layout.dart';
-import '../../widgets/base/app_header.dart';
+import '../../widgets/base/custom_header.dart';
 
 class PackageDetailsScreen extends StatelessWidget {
   final packageDetailCubit = locator<PackageDetailsCubit>();

@@ -4,7 +4,7 @@ import 'package:baridx_orderflow/core/constants/app_strings.dart';
 import 'package:sizer/sizer.dart';
 import '../../layouts/app_layout.dart';
 import '../../widgets/base/animated_gradient_button.dart';
-import '../../widgets/base/app_header.dart';
+import '../../widgets/base/custom_header.dart';
 import '../../widgets/general/order_creation/order_details_section.dart';
 import '../../../logic/cubits/order_cubit.dart';
 

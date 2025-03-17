@@ -1,5 +1,6 @@
 import 'package:baridx_orderflow/core/constants/app_colors.dart';
 import 'package:baridx_orderflow/core/constants/app_strings.dart';
+import 'package:baridx_orderflow/core/constants/app_styles.dart';
 import 'package:baridx_orderflow/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -54,13 +55,7 @@ class PaymentMethodSelector extends StatelessWidget {
                 child: Center(
                   child: Text(
                     entry.value,
-                    style: TextStyle(
-                      color: isSelected
-                          ? AppColors.backgroundLight
-                          : AppColors.textPrimary,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13.sp,
-                    ),
+                    style: AppStyles.paymentMethodTextStyle(isSelected),
                   ),
                 ),
               ),
