@@ -1,82 +1,63 @@
 # BaridX Flutter App
 
-## 📌 Overview
+### Overview
+A multi-step order creation app built with **Cubit (Bloc) for state management**, **GoRouter for navigation**, and **GetIt for Dependency Injection**. Designed with clean architecture for scalability and maintainability.
 
-A **multi-step order creation app** built with **Cubit (Bloc) for state management**, **GoRouter for navigation**, and **GetIt for Dependency Injection**. Designed with **clean architecture** for scalability and maintainability.
+### Key Decisions
+#### Why Cubit?
+- Lightweight with minimal boilerplate.
+- Keeps business logic independent from UI.
+- Efficiently manages multi-step state.
 
-## 🚀 Key Decisions
-
-### **1️⃣ Why Cubit?**
-
-- **Lightweight & Simple** – Less boilerplate than Bloc.
-- **Separation of Concerns** – Business logic stays independent from UI.
-- **Scalability** – Manages multi-step state efficiently.
-
-### **2️⃣ Why Avoid MultiBlocProvider in Root?**
-
-- **Prevents Bloated Widget Tree** – Avoids unnecessary state updates.
-- **Scoped State Management** –
-
+#### Why Avoid MultiBlocProvider in Root?
+- Prevents an unnecessarily bloated widget tree.
+- Scoped state management ensures efficiency.
 ```dart
 locator.registerLazySingleton(() => CustomerInfoCubit());
 locator.registerFactory(() => OrderCubit(locator<OrderRepository>()));
 ```
 
-### **3️⃣ Why GetIt for Dependency Injection?**
-
-- **Global Access** – No manual prop drilling.
-- **Lazy Initialization** – Optimized memory use.
-- **Loose Coupling** – Easy to swap implementations.
-
+#### Why GetIt for Dependency Injection?
+- Enables global access without manual dependency passing.
+- Lazy initialization optimizes resource usage.
+- Maintains loose coupling for flexibility.
 ```dart
 final paymentCubit = locator<PaymentCubit>();
 ```
 
-## 📌 Optimizations
+#### Why GoRouter?
+- Declarative and structured routing.
+- Custom transitions for a seamless UI experience.
+```dart
+static void goPayment() => locator<GoRouter>().push(paymentRoute);
+```
 
-✅ **Lazy Initialization**\
-✅ **Scoped State Handling**\
-✅ **Optimized Routing & UI Transitions**\
-✅ **Clean & Maintainable Code**\
-✅ **Global Dialog Management**\
-✅ **Reusable UI Components & Layout**\
-✅ **Structured API Handling for Scalability**
+### Core Features
+#### Global DialogService
+- Centralized dialog handling without requiring context.
+- Prevents memory leaks and improves efficiency.
 
+#### Complete API Flow Implementation
+- Replaced `Future.delayed()` with a structured API request flow.
+- Enhances scalability and maintains separation of concerns.
 
-## 📌 Core Features
+#### Modularized Code
+- UI styles, strings, and dimensions are extracted into separate files.
+- Complex UI elements are broken into reusable widgets.
 
-### **🔹 Global DialogService**
+#### General AppLayout for Reusability
+- Standardized layout for screens with shared UI elements.
+- Increases consistency and reduces redundant code.
 
-- Implemented a **DialogService** to show dialogs globally **without requiring context**.
-- **Why?** Passing context deep into functions can cause **memory leaks and unnecessary dependencies**.
+#### Validators & Form Handling
+- Implemented validation logic using custom validators and loggers.
+- Improved form handling for a better user experience.
 
-### **🔹 Complete API Flow Instead of Future.delayed()**
+#### UI Enhancements
+- Added an **IntroScreen** with onboarding slides and a **Splash Screen**.
+- Created a **HomeScreen** with additional UI details.
 
-- Instead of using a simple `Future.delayed()`, implemented a **proper API request flow** for better **scalability and real-world readiness**.
-- **Ensures cleaner separation** of business logic and API calls.
-
-### **🔹 Modularized Code**
-
-- **Separated UI styles, texts, strings, and dimensions** into dedicated files.
-- **Divided complex screens into small reusable widgets** for better maintainability.
-
-### **🔹 General AppLayout for Reusability**
-
-- Created a **universal AppLayout** to wrap screens and handle **common UI elements** like AppBar, BackButton, etc.
-- **Saves time and increases design consistency** across the app.
-
-### **🔹 Validators & Form Handling**
-
-- Used **custom validators and loggers** for input validation.
-- **Implemented Form for better user input handling**.
-
-### **🔹 UI Enhancements**
-
-- **IntroScreen & Splash Screen** with three onboarding slides.
-- **HomeScreen** with basic details and navigation options.
-
-## 📂 Folder Structure
-
+### Folder Structure
 ```
 lib/
 │── core/                 # Constants, Utilities, API Configurations
@@ -86,3 +67,13 @@ lib/
 │── routes/               # GoRouter Navigation Setup
 │── dependency_injection/ # GetIt Service Locator
 ```
+
+### Optimizations
+- Lazy initialization for efficient memory management.
+- Scoped state handling to minimize unnecessary rebuilds.
+- Optimized routing with smooth UI transitions.
+- Clean and maintainable code structure.
+- Centralized dialog management.
+- Reusable UI components and layouts.
+- Scalable API handling structure.
+
