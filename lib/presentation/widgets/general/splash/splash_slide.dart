@@ -38,7 +38,7 @@ class SplashSlide extends StatelessWidget {
         Expanded(
           flex: 0,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,

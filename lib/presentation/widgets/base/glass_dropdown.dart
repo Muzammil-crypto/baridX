@@ -2,10 +2,11 @@ import 'package:baridx_orderflow/core/constants/app_colors.dart';
 import 'package:baridx_orderflow/core/constants/app_dimensions.dart';
 import 'package:baridx_orderflow/core/constants/app_styles.dart';
 import 'package:baridx_orderflow/core/utils/validators.dart';
-import 'package:baridx_orderflow/logic/cubits/glass_input_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../logic/cubits/glass_input_cubit.dart';
 
 class GlassDropdown extends StatefulWidget {
   final String label;
@@ -15,13 +16,13 @@ class GlassDropdown extends StatefulWidget {
   final ValueChanged<String?> onChanged;
 
   const GlassDropdown({
-    super.key,
+    Key? key,
     required this.label,
     required this.hintText,
     required this.items,
     this.selectedValue,
     required this.onChanged,
-  });
+  }) : super(key: key);
 
   @override
   _GlassDropdownState createState() => _GlassDropdownState();
@@ -79,8 +80,14 @@ class _GlassDropdownState extends State<GlassDropdown>
                       );
                     }).toList(),
                     onChanged: widget.onChanged,
-                    validator: (val) =>
-                        Validators.validateDropdownField(val, widget.label),
+                    validator: (val) {
+                      final result =
+                          Validators.validateDropdownField(val, widget.label);
+                      if (result != null) {
+                        dropdownCubit.shake();
+                      }
+                      return result;
+                    },
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: AppColors.primary

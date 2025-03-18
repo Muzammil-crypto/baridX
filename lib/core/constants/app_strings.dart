@@ -13,8 +13,8 @@ class AppStrings {
 
   /// General
   static const bool debugShowCheckedModeBanner = false;
-  static const String appName = "BaridX OrderFlow";
-  static const String welcomeMessage = "Welcome to BaridX OrderFlow!";
+  static const String appName = "OrderPilot";
+  static const String welcomeMessage = "Welcome to OrderPilot!";
   static const String splashSubtitle =
       "Playio supports artists with tools to create, release, and measure music across a global stage.";
   static const String skip = "Skip";
@@ -41,7 +41,7 @@ class AppStrings {
   static const List<String> items = ["Small", "Medium", "Large"];
 
   /// Home Screen Strings
-  static const String homeScreenTitle = "Welcome to BaridX";
+  static const String homeScreenTitle = "Welcome to OrderPilot";
   static const String homeScreenSubtitle =
       "Playio is your ultimate destination for premium musical instruments and accessories. "
       "Whether you're a seasoned artist or just starting your musical journey, we offer top-quality "
@@ -69,7 +69,7 @@ class AppStrings {
   static const String addressHint = "Address";
   static const String infoScreenTitle = "Personal Details";
   static const String infoScreenSubTitle =
-      "Enter your details to personalize your experience with BardiX. Your information helps us provide better recommendations and a seamless user journey.";
+      "Enter your details to personalize your experience with OrderPilot. Your information helps us provide better recommendations and a seamless user journey.";
 
   /// Package Details Step
   static const String packageDetails = "Package Details";
