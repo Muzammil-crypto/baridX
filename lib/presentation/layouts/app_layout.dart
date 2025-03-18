@@ -16,6 +16,7 @@ class AppLayout extends StatelessWidget {
     this.actions,
   });
 
+  /// Alternative constructor for screens where the back button is not needed.
   const AppLayout.noBackButton({
     super.key,
     required this.child,
@@ -28,12 +29,14 @@ class AppLayout extends StatelessWidget {
       backgroundColor: AppColors.backgroundLight,
       body: Stack(
         children: [
+          // Background Gradient
           Container(
             decoration: const BoxDecoration(
               gradient: AppColors.appGradient,
             ),
           ),
-          // Blurred Light Effects
+
+          // Blurred Light Effects for UI Aesthetic
           Positioned(
             top: 30.h,
             left: 28.w,
@@ -44,6 +47,8 @@ class AppLayout extends StatelessWidget {
             left: -5.w,
             child: BlurredCircle(color: AppColors.blurSoftPurple, size: 30.w),
           ),
+
+          // Back Button (only shown when enabled)
           if (showBackButton)
             Positioned(
               top: 8.h,
@@ -56,7 +61,8 @@ class AppLayout extends StatelessWidget {
                 ),
               ),
             ),
-          // Main Content
+
+          // Child will be the main content of the screen, the wrapped widget
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 10.h),
             child: child,

@@ -24,11 +24,13 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void initState() {
     super.initState();
+    // Retrieves HomeCubit instance from GetIt and provides animation control.
     homeCubit = locator<HomeCubit>(param1: this);
   }
 
   @override
   void dispose() {
+    // Disposes of HomeCubit to free up resources when screen is removed.
     homeCubit.close();
     super.dispose();
   }
@@ -43,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen>
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Home Screen Header
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
                   child: AppHeader(
@@ -51,6 +54,8 @@ class _HomeScreenState extends State<HomeScreen>
                     subtitle: AppStrings.homeScreenSubtitle,
                   ),
                 ),
+
+                // Feature List (Scrollable)
                 Expanded(
                   child: ListView(
                     physics: const BouncingScrollPhysics(),
@@ -77,16 +82,10 @@ class _HomeScreenState extends State<HomeScreen>
                         icon: Icons.music_note_rounded,
                       ),
                     ],
-                    //   children: List.generate(
-                    //     4,
-                    //     (index) => _buildFeatureCard(
-                    //       title: AppStrings.discoverMusicTitle,
-                    //       description: AppStrings.discoverMusicDescription,
-                    //       icon: Icons.music_note_rounded,
-                    //     ),
-                    // ),
                   ),
                 ),
+
+                // Get Started Button
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 2.h),
                   child: Center(
@@ -104,18 +103,19 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _buildFeatureCard(
-      {required String title,
-      required String description,
-      required IconData icon}) {
+  /// Builds a single feature card with an icon, title, and description for the Home Screen.
+  Widget _buildFeatureCard({
+    required String title,
+    required String description,
+    required IconData icon,
+  }) {
     return SlideTransition(
       position: homeCubit.slideAnimation,
       child: FadeTransition(
         opacity: homeCubit.fadeAnimation,
         child: Card(
           margin: EdgeInsets.symmetric(vertical: 1.h),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           elevation: 4,
           color: AppColors.backgroundLight,
           child: ListTile(
@@ -132,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 }
 
+/// Home Screen Header with animated title and subtitle.
 class AppHeader extends StatelessWidget {
   const AppHeader({
     super.key,
@@ -148,6 +149,7 @@ class AppHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Animated Title
         SlideTransition(
           position: homeCubit.slideAnimation,
           child: FadeTransition(
@@ -155,14 +157,14 @@ class AppHeader extends StatelessWidget {
             child: Text(
               textAlign: TextAlign.center,
               title,
-              style: AppStyles.titleStyle.copyWith(fontSize: 22.sp),
+              style: AppStyles.titleStyle,
             ),
           ),
         ),
 
         SizedBox(height: 1.h),
 
-        // Animated Subtext
+        // Animated Subtitle
         SlideTransition(
           position: homeCubit.slideAnimation,
           child: FadeTransition(

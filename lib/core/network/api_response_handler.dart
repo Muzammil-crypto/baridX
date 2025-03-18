@@ -2,12 +2,13 @@ import 'dart:convert';
 // import 'package:http/http.dart' as http;
 import 'api_exceptions.dart';
 
+/// Handles API responses and throws appropriate exceptions based on status codes.
 class ApiResponseHandler {
   static dynamic handleResponse(response) {
     switch (response.statusCode) {
       case 200:
       case 201:
-        return jsonDecode(response.body);
+        return jsonDecode(response.body); // Success response
       case 400:
         throw BadRequestException(jsonDecode(response.body)['message'] ?? "Bad request.");
       case 401:

@@ -35,7 +35,7 @@ class _CustomHeaderState extends State<CustomHeader> {
       curve: Curves.easeInOut,
       padding: EdgeInsets.only(top: isAnimated ? 5.h : 3.h, bottom: 2.h),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
             child: AnimatedOpacity(

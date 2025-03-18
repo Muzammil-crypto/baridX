@@ -16,6 +16,7 @@ class SplashSlide extends StatelessWidget {
 
     return Column(
       children: [
+        // Animated Splash Image
         Expanded(
           flex: 2,
           child: Center(
@@ -24,13 +25,16 @@ class SplashSlide extends StatelessWidget {
               child: FadeTransition(
                 opacity: splashCubit.fadeAnimation,
                 child: Image.asset(
-                  AppStrings.splashData[index]["image"]!,
-                  width: 50.w,
+                  // splashData is a list of maps containing image paths and titles.
+                  AppStrings.splashData[index]["image"]!, // Dynamically fetch image based on index.
+                  width: 50.w, // Responsive image sizing.
                 ),
               ),
             ),
           ),
         ),
+
+        // Animated Title and Subtitle
         Expanded(
           flex: 0,
           child: Padding(
@@ -39,6 +43,7 @@ class SplashSlide extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // Animated Title with Color Accent
                 SlideTransition(
                   position: splashCubit.slideAnimation,
                   child: FadeTransition(
@@ -50,14 +55,15 @@ class SplashSlide extends StatelessWidget {
                           TextSpan(text: AppStrings.splashData[index]["title"]),
                           TextSpan(
                             text: ".",
-                            style: AppStyles.titleStyle
-                                .copyWith(color: AppColors.primary),
+                            style: AppStyles.titleStyle.copyWith(color: AppColors.primary),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
+
+                // Animated Subtitle Text
                 SlideTransition(
                   position: splashCubit.slideAnimation,
                   child: FadeTransition(

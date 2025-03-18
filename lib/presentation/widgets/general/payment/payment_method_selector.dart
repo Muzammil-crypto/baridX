@@ -1,3 +1,4 @@
+import 'package:baridx_orderflow/app.dart';
 import 'package:baridx_orderflow/core/constants/app_colors.dart';
 import 'package:baridx_orderflow/core/constants/app_strings.dart';
 import 'package:baridx_orderflow/core/constants/app_styles.dart';
@@ -9,7 +10,7 @@ import '../../../../core/constants/app_enums.dart';
 class PaymentMethodSelector extends StatelessWidget {
   final PaymentMethod selectedMethod;
   final ValueChanged<PaymentMethod> onSelect;
-
+  ///  displays a list of payment methods and allows users to select one
   const PaymentMethodSelector({
     super.key,
     required this.selectedMethod,
@@ -18,6 +19,7 @@ class PaymentMethodSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Available payment methods with their respective labels
     final methods = {
       PaymentMethod.goBack: AppStrings.goBack,
       PaymentMethod.creditCard: AppStrings.creditCard,
@@ -40,9 +42,9 @@ class PaymentMethodSelector extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 if (entry.key != PaymentMethod.goBack) {
-                  onSelect(entry.key);
+                  onSelect(entry.key); // Updates selected method
                 } else {
-                  AppRouter.goBack();
+                  AppRouter.goBack(); // Navigates back if "Go Back" is selected
                 }
               },
               child: AnimatedContainer(
@@ -55,7 +57,7 @@ class PaymentMethodSelector extends StatelessWidget {
                 child: Center(
                   child: Text(
                     entry.value,
-                    style: AppStyles.paymentMethodTextStyle(isSelected),
+                    style: AppStyles.paymentMethodTextStyle(isSelected).copyWith(fontSize: 13.sp, fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500),
                   ),
                 ),
               ),

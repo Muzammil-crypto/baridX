@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// AppColors class contains all the color constants used in the app.
 class AppColors {
   /// Primary Brand Colors (Soft Purple Theme)
   static const Color primary = Color(0xFF7E57C2); // Soft Purple

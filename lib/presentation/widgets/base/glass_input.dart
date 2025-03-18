@@ -13,7 +13,7 @@ class GlassInput extends StatefulWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final bool obscureText;
-
+/// GlassInput is a custom input field widget with a glassmorphism design.
   const GlassInput({
     super.key,
     required this.label,
@@ -35,6 +35,7 @@ class _GlassInputState extends State<GlassInput>
   @override
   void initState() {
     super.initState();
+    // Initializes the Cubit with an animation controller for validation feedback.
     textFieldCubit = TextFieldCubit(
       controller: AnimationController(vsync: this, duration: const Duration(milliseconds: 400)),
     );
@@ -42,6 +43,7 @@ class _GlassInputState extends State<GlassInput>
 
   @override
   void dispose() {
+    // Ensures proper cleanup of Cubit and animation controller.
     textFieldCubit.close();
     super.dispose();
   }
@@ -56,8 +58,11 @@ class _GlassInputState extends State<GlassInput>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Input Label
               Text(widget.label, style: AppStyles.labelTextStyle),
               SizedBox(height: 0.5.h),
+
+              // Animated Text Field with Validation Feedback
               AnimatedBuilder(
                 animation: textFieldCubit.shakeAnimation,
                 builder: (context, child) {
@@ -76,51 +81,59 @@ class _GlassInputState extends State<GlassInput>
                     hintStyle: AppStyles.inputHintStyle,
                     filled: true,
                     fillColor: AppColors.primary.withOpacity(0.05),
+
+                    // Default Border
                     border: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                      borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
                       borderSide: BorderSide(
                         color: AppColors.primary.withOpacity(0.3),
                       ),
                     ),
+
+                    // Border when input is enabled
                     enabledBorder: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                      borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
                       borderSide: BorderSide(
                         color: AppColors.primary.withOpacity(0.3),
                       ),
                     ),
+
+                    // Border when input is focused
                     focusedBorder: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                      borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
                       borderSide: const BorderSide(
                         color: AppColors.primary,
                         width: 0.5,
                       ),
                     ),
+
+                    // Border when validation fails
                     errorBorder: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                      borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
                       borderSide: const BorderSide(
                         color: AppColors.error,
                         width: 0.5,
                       ),
                     ),
+
+                    // Border when validation fails but the field is focused
                     focusedErrorBorder: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(AppDimensions.borderRadiusMedium),
+                      borderRadius: BorderRadius.circular(AppDimensions.borderRadiusMedium),
                       borderSide: const BorderSide(
                         color: AppColors.error,
                         width: 0.5,
                       ),
                     ),
-                    contentPadding:
-                    EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
+
+                    // Input padding for better spacing
+                    contentPadding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
                   ),
+
+                  // Validator function with animation trigger on failure
                   validator: (value) {
                     final result = widget.validator?.call(value);
                     if (result != null) {
-                      textFieldCubit.shake(); // Trigger shake animation if invalid
+                      textFieldCubit.shake(); // Triggers shake animation on validation error.
                     }
                     return result;
                   },

@@ -16,7 +16,7 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final payCubit = locator<PaymentCubit>(); // Access cubit from locator
+    final payCubit = locator<PaymentCubit>(); // Access PaymentCubit globally
 
     return AppLayout.noBackButton(
       child: LayoutBuilder(
@@ -27,6 +27,7 @@ class PaymentScreen extends StatelessWidget {
               child: IntrinsicHeight(
                 child: Column(
                   children: [
+                    /// Payment method selection with dynamic updates
                     ValueListenableBuilder<PaymentMethod>(
                       valueListenable: payCubit.selectedMethod,
                       builder: (context, method, _) {
@@ -37,6 +38,7 @@ class PaymentScreen extends StatelessWidget {
                       },
                     ),
 
+                    /// Displays input fields based on selected payment method
                     Expanded(
                       child: ValueListenableBuilder<PaymentMethod>(
                         valueListenable: payCubit.selectedMethod,
@@ -52,11 +54,15 @@ class PaymentScreen extends StatelessWidget {
                       ),
                     ),
 
+                    /// Proceed Button
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 2.h),
                       child: Align(
                         alignment: Alignment.center,
-                        child: AnimatedGradientButton(text: AppStrings.next, onPressed: payCubit.handleOnPressed),
+                        child: AnimatedGradientButton(
+                          text: AppStrings.next,
+                          onPressed: payCubit.handleOnPressed, // Validates and moves to the next step
+                        ),
                       ),
                     ),
                   ],
@@ -69,6 +75,7 @@ class PaymentScreen extends StatelessWidget {
     );
   }
 
+  /// Builds UI dynamically based on selected payment method
   Widget _buildPaymentUI(PaymentMethod method, PaymentCubit payCubit) {
     switch (method) {
       case PaymentMethod.creditCard:
@@ -110,9 +117,9 @@ class PaymentScreen extends StatelessWidget {
             ),
           ),
         );
-      case PaymentMethod.goBack:
-        return const Text("Red");
 
+      case PaymentMethod.goBack:
+        return const Text("Red"); // Placeholder for go-back functionality
     }
   }
 }

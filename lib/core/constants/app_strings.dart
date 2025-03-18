@@ -108,7 +108,7 @@ class AppStrings {
       "Any cancellation or non-acceptance may affect your future COD orders.\n\n"
       "If you have any questions, feel free to contact our support team. Happy Shopping! 🎶";
   // On Delivery
-  static const String onDeliveryTitle = "Receive & Pay";
+  static const String onDeliveryTitle = "On Delivered";
   // Go Back
   static const String goBack = "Go Back";
   /// Review & Submit

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+/// The introduction for limited time screen, The first screen that users see when they open the app.
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
 
@@ -23,12 +24,14 @@ class _IntroScreenState extends State<IntroScreen>
   @override
   void initState() {
     super.initState();
-    // Get Cubit from service locator (pass context & TickerProvider)
+    // Retrieve the IntroCubit instance from GetIt and pass necessary parameters.
+    // The TickerProvider is required for animations.
     introCubit = locator<IntroCubit>(param1: context, param2: this);
   }
 
   @override
   void dispose() {
+    // Close the Cubit to free up resources when the screen is removed.
     introCubit.close();
     super.dispose();
   }
@@ -38,25 +41,29 @@ class _IntroScreenState extends State<IntroScreen>
     return BlocProvider.value(
       value: introCubit,
       child: AppLayout(
-        showBackButton: false,
+        showBackButton: false, // Intro screen does not need a back button.
         child: Column(
           children: [
             Expanded(flex: 5, child: Container()),
+
+            // Animated Speaker Image
             Expanded(
               flex: 6,
               child: Center(
                 child: SlideTransition(
-                  position: introCubit.slideAnimation,
+                  position: introCubit.slideAnimation, // Slide animation
                   child: FadeTransition(
-                    opacity: introCubit.fadeAnimation,
+                    opacity: introCubit.fadeAnimation, // Fade animation
                     child: Image.asset(
                       AppAssets.speaker,
-                      width: 40.w,
+                      width: 40.w, // Responsive width using Sizer.
                     ),
                   ),
                 ),
               ),
             ),
+
+            // App Name with Styled Dot
             Expanded(
               flex: 2,
               child: Center(
@@ -70,7 +77,7 @@ class _IntroScreenState extends State<IntroScreen>
                         TextSpan(
                           text: ".",
                           style: AppStyles.titleStyle
-                              .copyWith(color: AppColors.primary),
+                              .copyWith(color: AppColors.primary), // Primary color dot.
                         ),
                       ],
                     ),
@@ -78,6 +85,7 @@ class _IntroScreenState extends State<IntroScreen>
                 ),
               ),
             ),
+
             Expanded(flex: 5, child: Container()),
           ],
         ),

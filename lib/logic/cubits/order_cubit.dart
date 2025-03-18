@@ -12,36 +12,50 @@ import 'customer_info_cubit.dart';
 
 class OrderCubit extends Cubit<bool> {
   final OrderRepository orderRepository;
+
+  /// Retrieves dependent cubits from service locator to access form data.
   final paymentCubit = locator<PaymentCubit>();
   final customerCubit = locator<CustomerInfoCubit>();
   final packageCubit = locator<PackageDetailsCubit>();
+
+  /// DialogService for displaying processing and success dialogs.
   final DialogService _dialogService = locator<DialogService>();
+
   OrderCubit({required this.orderRepository}) : super(false);
 
-  /// Submit Order
+  /// Handles order submission process.
   void handleSubmitOrder() async {
+    /// Ensures the dialog service context is available before proceeding.
     if (_dialogService.navigatorKey.currentContext == null) {
       Logger.debugPrint("OrderCubit: Dialog context is not available yet!");
       return;
     }
+
+    /// Shows a processing dialog while submitting the order.
     _dialogService.showProcessingDialog();
     Logger.debugPrint("Submitting order");
+
+    /// Calls order submission and waits for success response.
     bool success = await _submitOrder();
 
+    /// Closes the dialog after processing.
     _dialogService.closeDialog();
+
+    /// Displays a success dialog and navigates home if order was successful.
     if (success) {
       _dialogService.showSuccessDialog(() => AppRouter.replaceToHome());
     }
   }
 
+  /// Simulates an API request for order submission.
   Future<bool> _submitOrder() async {
-    emit(true);
+    emit(true); // Indicates loading state.
     final success = await orderRepository.submitOrder();
-    emit(false);
+    emit(false); // Restores default state after submission.
     return success;
   }
 
-  /// Get Customer Details
+  /// Retrieves formatted customer details.
   List<String> getCustomerDetails() {
     return [
       "${AppStrings.name}: ${customerCubit.firstNameController.text} ${customerCubit.secondNameController.text}",
@@ -50,7 +64,7 @@ class OrderCubit extends Cubit<bool> {
     ];
   }
 
-  /// Get Package Details
+  /// Retrieves formatted package details.
   List<String> getPackageDetails() {
     return [
       "${AppStrings.packageType}: ${packageCubit.selectedPackageType ?? 'N/A'}",
@@ -60,18 +74,28 @@ class OrderCubit extends Cubit<bool> {
     ];
   }
 
-  /// Get Payment Details
+  /// Retrieves formatted payment details based on selected method.
   List<String> getPaymentDetails() {
     final selectedMethod = paymentCubit.selectedMethod.value;
 
     switch (selectedMethod) {
       case PaymentMethod.creditCard:
-        return ["${AppStrings.paymentMethod}: ${selectedMethod.name}", "${AppStrings.cardNumber}: ${paymentCubit.cardNumberController.text}"];
+        return [
+          "${AppStrings.paymentMethod}: ${selectedMethod.name}",
+          "${AppStrings.cardNumber}: ${paymentCubit.cardNumberController.text}",
+        ];
+
       case PaymentMethod.cashOnDelivery:
         return ["${AppStrings.selectedPaymentMethod}: ${AppStrings.cashOnDelivery}"];
+
       case PaymentMethod.payLater:
-        return ["${AppStrings.paymentMethod}: ${selectedMethod.name}", "${AppStrings.phone}: ${paymentCubit.phoneNumberController.text}"];
-      case PaymentMethod.goBack: return [""];
+        return [
+          "${AppStrings.paymentMethod}: ${selectedMethod.name}",
+          "${AppStrings.phone}: ${paymentCubit.phoneNumberController.text}",
+        ];
+
+      case PaymentMethod.goBack:
+        return [""];
     }
   }
 }

@@ -10,6 +10,7 @@ import '../../logic/cubits/splash_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -21,11 +22,13 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
+    // Initialize the SplashCubit with TickerProvider for animations.
     splashCubit = SplashCubit(vsync: this);
   }
 
   @override
   void dispose() {
+    // Dispose of the Cubit to free up resources.
     splashCubit.close();
     super.dispose();
   }
@@ -37,6 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
       child: AppLayout.noBackButton(
         child: Column(
           children: [
+            // Skip Button to allow users to skip the intro slides.
             Align(
               alignment: Alignment.topRight,
               child: TextButton(
@@ -47,6 +51,8 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
             ),
+
+            // PageView for Intro Slides
             Expanded(
               child: BlocBuilder<SplashCubit, int>(
                 builder: (context, pageIndex) {
@@ -54,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen>
                     onPageChanged: (index) {
                       splashCubit.updatePage(index);
                     },
-                    itemCount: 3,
+                    itemCount: 3, // Number of slides.
                     itemBuilder: (context, index) {
                       return SplashSlide(index: index);
                     },
@@ -62,6 +68,8 @@ class _SplashScreenState extends State<SplashScreen>
                 },
               ),
             ),
+
+            // Page Indicator Dots
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: BlocBuilder<SplashCubit, int>(
@@ -70,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen>
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: List.generate(
                       3,
-                      (index) => AnimatedDot(isActive: index == pageIndex),
+                          (index) => AnimatedDot(isActive: index == pageIndex),
                     ),
                   );
                 },

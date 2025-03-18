@@ -34,7 +34,6 @@ class PaymentCubit {
         }
         break;
       case PaymentMethod.goBack:
-        // Go back to the previous screen
     }
   }
 }

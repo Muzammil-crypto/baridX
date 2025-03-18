@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:sizer/sizer.dart';
 
+/// AppDimensions class contains all the dimension constants used in the app.
 class AppDimensions {
   /// Padding & Margin (Responsive)
   static double paddingSmall = 2.w;
